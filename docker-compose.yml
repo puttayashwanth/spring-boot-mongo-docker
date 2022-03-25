@@ -17,6 +17,8 @@ services:
     - springappnetwork  
     deploy:  # This will be considered only in docker swarm.
       replicas: 2
+      placement:
+        constraints: [node.role == worker]
       update_config:
         parallelism: 1
         delay: 20s
@@ -35,6 +37,9 @@ services:
     restart: always
     networks:
     - springappnetwork
+    replicas: 2
+    placement:
+      constraints: [node.role == worker]
     
 volumes:
   mongodb:
